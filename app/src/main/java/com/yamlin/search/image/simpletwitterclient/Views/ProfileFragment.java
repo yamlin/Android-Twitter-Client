@@ -1,0 +1,128 @@
+package com.yamlin.search.image.simpletwitterclient.Views;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.net.Uri;
+import android.os.Bundle;
+import android.app.Fragment;
+import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+import com.yamlin.search.image.simpletwitterclient.R;
+
+import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link ProfileFragment.ProfileFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link ProfileFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class ProfileFragment extends DialogFragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_IMG = "imageUrl";
+    private static final String ARG_SCREEN_NAME = "screen_name";
+    private static final String ARG_NAME = "name";
+    private static final String ARG_PARAM4 = "screen_name";
+
+    private String mImageUrl;
+    private String mName;
+    private String mScreenName;
+
+
+    private ImageView mProfileImage;
+    private TextView mTextName;
+    private TextView mTextScreenName;
+
+    private ProfileFragmentInteractionListener mListener;
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+
+     * @return A new instance of fragment ProfileFragment.
+     */
+    public static ProfileFragment newInstance(String name, String screenName, String imageUrl) {
+        ProfileFragment fragment = new ProfileFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_IMG, imageUrl);
+        args.putString(ARG_SCREEN_NAME, screenName);
+        args.putString(ARG_NAME, name);
+
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public ProfileFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mImageUrl = getArguments().getString(ARG_IMG, "");
+            mName = getArguments().getString(ARG_NAME, "");
+            mScreenName = getArguments().getString(ARG_SCREEN_NAME, "");
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        mTextName = (TextView) view.findViewById(R.id.fragment_profile_name);
+        mTextName.setText(mName);
+        mTextScreenName = (TextView) view.findViewById(R.id.fragment_profile_screen_name);
+        mTextScreenName.setText("@" + mScreenName);
+        mProfileImage = (ImageView) view.findViewById(R.id.fragment_profile_image);
+        Picasso.with(getActivity()).load(mImageUrl)
+                .fit().into(mProfileImage);
+
+        return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (ProfileFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface ProfileFragmentInteractionListener {
+    }
+
+}

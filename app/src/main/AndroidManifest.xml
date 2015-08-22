@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yamlin.search.image.simpletwitterclient" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- add the following metadata for version and database name -->
+    <meta-data
+        android:name="AA_DB_NAME"
+            android:value="RestClient.db" />
+    <meta-data
+        android:name="AA_DB_VERSION"
+        android:value="11" />
+
+    <application
+        android:name="com.activeandroid.app.Application"
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label=""
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:icon="@drawable/logo"
+            android:theme="@style/Theme.AppCompat.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <data
+                    android:host="yamlinkerker"
+                    android:scheme="oauth" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
